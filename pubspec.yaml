@@ -63,6 +63,9 @@ dependencies:
   #chached image 
   cached_network_image: ^3.2.0
 
+  #HTTP networking package
+  dio: ^4.0.6
+
 dev_dependencies:
   flutter_test:
     sdk: flutter
@@ -113,7 +116,7 @@ flutter:
           weight: 700
         - asset: assets/fonts/muli/Muli-Light.ttf
           weight: 300
-          
+
   #   - family: Schyler
   #     fonts:
   #       - asset: fonts/Schyler-Regular.ttf

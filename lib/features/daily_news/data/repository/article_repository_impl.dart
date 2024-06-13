@@ -6,14 +6,15 @@ import 'package:flutter_bloc_clean_architecture_news_app/features/daily_news/dom
 import '../../../../core/constants/constants.dart';
 import '../../../../core/resources/data_state.dart';
 import '../../domain/repository/article_repository.dart';
+import '../data_sources/local/app_database.dart';
 import '../data_sources/remote/news_api_service.dart';
 import '../models/article.dart';
 
 // Implementation of the ArticleRepository interface.
 class ArticleRepositoryImpl implements ArticleRepository {
   final NewsApiService _newsApiService; // Dependency on NewsApiService.
-
-  ArticleRepositoryImpl(this._newsApiService);
+  final AppDatabase _appDatabase;
+  ArticleRepositoryImpl(this._newsApiService,this._appDatabase);
 
   @override
   Future<DataState<List<ArticleModel>>> getNewsArticles() async {
@@ -43,20 +44,17 @@ class ArticleRepositoryImpl implements ArticleRepository {
   }
 
   @override
-  Future<List<ArticleEntity>> getSavedArticles() {
-    // Method to be implemented for fetching saved articles from the database.
-    throw UnimplementedError();
+  Future<List<ArticleModel>> getSavedArticles() async {
+    return _appDatabase.articleDAO.getArticles();
   }
 
   @override
   Future<void> removeArticle(ArticleEntity article) {
-    // Method to be implemented for removing an article from the database.
-    throw UnimplementedError();
+    return _appDatabase.articleDAO.deleteArticle(ArticleModel.fromEntity(article));
   }
 
   @override
   Future<void> saveArticle(ArticleEntity article) {
-    // Method to be implemented for saving an article to the database.
-    throw UnimplementedError();
+    return _appDatabase.articleDAO.insertArticle(ArticleModel.fromEntity(article));
   }
 }

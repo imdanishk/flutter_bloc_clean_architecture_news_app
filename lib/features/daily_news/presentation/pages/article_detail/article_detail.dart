@@ -112,27 +112,14 @@ class ArticleDetailsView extends HookWidget {
     Navigator.pop(context);
   }
 
-  void _onFloatingActionButtonPressed(BuildContext context) async {
-    final bloc = BlocProvider.of<LocalArticleBloc>(context);
-    final isSaved = await bloc.isArticleSaved(article!);
-    
-    if (!isSaved) {
-      bloc.add(SaveArticle(article!));
-      ScaffoldMessenger.of(context).clearSnackBars();
-      ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(
-          backgroundColor: Colors.black,
-          content: Text('Article saved successfully.'),
-        ),
-      );
-    } else {
-      ScaffoldMessenger.of(context).clearSnackBars();
-      ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(
-          backgroundColor: Colors.black,
-          content: Text('Article is already saved.'),
-        ),
-      );
-    }
+  void _onFloatingActionButtonPressed(BuildContext context) {
+    BlocProvider.of<LocalArticleBloc>(context).add(SaveArticle(article!));
+    ScaffoldMessenger.of(context).clearSnackBars();
+    ScaffoldMessenger.of(context).showSnackBar(
+      const SnackBar(
+        backgroundColor: Colors.black,
+        content: Text('Article saved successfully.'),
+      ),
+    );
   }
 }
